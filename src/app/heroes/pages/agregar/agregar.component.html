@@ -1,0 +1,99 @@
+
+<!--Agregar y editar usan la misma ruta, con ngModule se controla que se quiere sacar -->
+
+
+<h1>
+ <!--Si existe id sale editar si no, sale Nuevo-->
+
+    {{ 
+        (heroe.id ? 'Editar': 'Nuevo')             
+    }}
+
+    
+    
+    
+      {{heroe.superhero}} <small></small></h1>
+
+<div fxLayout="row" fxLayoutGap="40px" fxLayout.xs="column"> 
+
+    
+    <div fxFlex="50" fxLayout="column">
+        <div fxLayout="row">
+
+            <mat-form-field fxFlex="100" 
+             fxLayoutGap="20px"
+             fxLayout.xs="column" >
+
+                <mat-label>Super heroe </mat-label>
+                <input matInput type="text" [(ngModel)]="heroe.superhero" required>
+
+            </mat-form-field>
+
+            <mat-form-field fxFlex="100">
+                <mat-label>Alter ego</mat-label>
+                <input matInput type="text"[(ngModel)]="heroe.alter_ego" required>
+            </mat-form-field>
+
+        </div>
+  
+        <mat-form-field fxFlex="100">
+            <mat-label>Primera Asparicion</mat-label>
+            <input matInput type="text" [(ngModel)]="heroe.first_appearance" required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>Personajes</mat-label>
+            <input matInput type="text"[(ngModel)]="heroe.characters" required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>Creador</mat-label>
+
+            <mat-select [(ngModel)]="heroe.publisher" required>
+                <mat-option *ngFor="let publisher of publishers"
+                            [value]="publisher.id"
+                            required>
+
+                            {{publisher.desc}}
+                    
+                </mat-option>
+
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+      
+        <mat-form-field fxFlex="100">
+            <mat-label>Foto Url</mat-label>
+            <input matInput 
+                type="text"
+                [(ngModel)]="heroe.alt_img" required>
+        </mat-form-field>
+
+        <div fxLayout>
+            <button mat-raised-button
+                    color="primary"
+                    (click)="guardar()" >
+                <mat-icon> edit</mat-icon>
+                  {{ (heroe.id ? 'Actualizar': 'Nuevo') }}
+           
+            </button>
+            
+            <span class="spacer"></span>
+
+            <button mat-raised-button color="warn"
+                *ngIf="heroe.id"
+                (click)="borrar()">   <!--Si existe el id, se muestra el boton (en en editar)-->
+                <mat-icon> remove</mat-icon>
+                Borrar
+            </button>
+        </div>
+
+    </div>
+
+    <div fxFlex="50">
+        <img [src]="heroe | imagen">
+    </div>
+
+    
+</div>
